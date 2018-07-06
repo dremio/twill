@@ -81,6 +81,10 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.10</artifactId>
         </dependency>
+        <dependency>
+           <groupId>com.101tec</groupId>
+           <artifactId>zkclient</artifactId>
+        </dependency>
 	<!-- https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple -->
 	<dependency>
 	  <groupId>net.sf.jopt-simple</groupId>
