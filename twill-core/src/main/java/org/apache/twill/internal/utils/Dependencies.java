@@ -75,6 +75,10 @@ public final class Dependencies {
       if (classUrl == null) {
         continue;
       }
+      if ("jrt".equals(classUrl.getProtocol())) {
+        System.out.println(classUrl.toString());
+        continue;
+      }
 
       // Call the accept to see if it accept the current class.
       if (!acceptor.accept(className, classUrl, getClassPathURL(className, classUrl))) {
