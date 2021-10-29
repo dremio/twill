@@ -109,13 +109,16 @@ public final class ApplicationBundler {
   public ApplicationBundler(ClassAcceptor classAcceptor) {
     this.classAcceptor = classAcceptor;
     ImmutableSet.Builder<String> builder = ImmutableSet.builder();
-    for (String classpath : Splitter.on(File.pathSeparatorChar).split(System.getProperty("sun.boot.class.path"))) {
-      File file = new File(classpath);
-      builder.add(file.getAbsolutePath());
-      try {
-        builder.add(file.getCanonicalPath());
-      } catch (IOException e) {
-        // Ignore the exception and proceed.
+    String bootClassPath = System.getProperty("sun.boot.class.path");
+    if (bootClassPath != null) {
+      for (String classpath : Splitter.on(File.pathSeparatorChar).split(bootClassPath)) {
+        File file = new File(classpath);
+        builder.add(file.getAbsolutePath());
+        try {
+          builder.add(file.getCanonicalPath());
+        } catch (IOException e) {
+          // Ignore the exception and proceed.
+        }
       }
     }
     this.bootstrapClassPaths = builder.build();
@@ -246,6 +249,7 @@ public final class ApplicationBundler {
     if (classLoader == null) {
       classLoader = getClass().getClassLoader();
     }
+
 
     // Record the set of classpath URL that are already added to the jar
     final Set<URL> seenClassPaths = Sets.newHashSet();
